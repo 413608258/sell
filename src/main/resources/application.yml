@@ -1,0 +1,7 @@
+#logging:
+#  pattern:
+#    console: "%d - %msg%n"
+#  file: E:/sell.log
+#  level:
+#    com.lous.sell.LoggerTest: debug
+#  path: E:/
