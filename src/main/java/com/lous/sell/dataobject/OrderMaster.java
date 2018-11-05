@@ -1,5 +1,10 @@
 package com.lous.sell.dataobject;
 
+import com.lous.sell.enums.OrderStatusEnum;
+import com.lous.sell.enums.PayStatusEnum;
+import lombok.Data;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
@@ -15,6 +20,8 @@ import java.io.Serializable;
  * @since 2018-11-01
  */
 @Entity
+@Data
+@DynamicUpdate
 public class OrderMaster implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,15 +46,15 @@ public class OrderMaster implements Serializable {
     /**
      * 订单总金额
      */
-    private BigDecimal buyerAmount;
+    private BigDecimal orderAmount;
     /**
      * 订单装填,默认0新下单
      */
-    private Integer orderStatus;
+    private Integer orderStatus = OrderStatusEnum.NEW.getCode();
     /**
      * 支付状态,默认0未支付
      */
-    private Integer payStatus;
+    private Integer payStatus = PayStatusEnum.WAIT.getCode();
     /**
      * 创建时间
      */
@@ -56,97 +63,6 @@ public class OrderMaster implements Serializable {
      * 更新时间
      */
     private Date updateTime;
-
-
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public OrderMaster setOrderId(String orderId) {
-        this.orderId = orderId;
-        return this;
-    }
-
-    public String getBuyerName() {
-        return buyerName;
-    }
-
-    public OrderMaster setBuyerName(String buyerName) {
-        this.buyerName = buyerName;
-        return this;
-    }
-
-    public String getBuyerPhone() {
-        return buyerPhone;
-    }
-
-    public OrderMaster setBuyerPhone(String buyerPhone) {
-        this.buyerPhone = buyerPhone;
-        return this;
-    }
-
-    public String getBuyerAddress() {
-        return buyerAddress;
-    }
-
-    public OrderMaster setBuyerAddress(String buyerAddress) {
-        this.buyerAddress = buyerAddress;
-        return this;
-    }
-
-    public String getBuyerOpenid() {
-        return buyerOpenid;
-    }
-
-    public OrderMaster setBuyerOpenid(String buyerOpenid) {
-        this.buyerOpenid = buyerOpenid;
-        return this;
-    }
-
-    public BigDecimal getBuyerAmount() {
-        return buyerAmount;
-    }
-
-    public OrderMaster setBuyerAmount(BigDecimal buyerAmount) {
-        this.buyerAmount = buyerAmount;
-        return this;
-    }
-
-    public Integer getOrderStatus() {
-        return orderStatus;
-    }
-
-    public OrderMaster setOrderStatus(Integer orderStatus) {
-        this.orderStatus = orderStatus;
-        return this;
-    }
-
-    public Integer getPayStatus() {
-        return payStatus;
-    }
-
-    public OrderMaster setPayStatus(Integer payStatus) {
-        this.payStatus = payStatus;
-        return this;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public OrderMaster setCreateTime(Date createTime) {
-        this.createTime = createTime;
-        return this;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public OrderMaster setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-        return this;
-    }
 
     public static final String ORDER_ID = "order_id";
 
@@ -158,7 +74,7 @@ public class OrderMaster implements Serializable {
 
     public static final String BUYER_OPENID = "buyer_openid";
 
-    public static final String BUYER_AMOUNT = "buyer_amount";
+    public static final String ORDER_AMOUNT = "order_amount";
 
     public static final String ORDER_STATUS = "order_status";
 
@@ -168,19 +84,4 @@ public class OrderMaster implements Serializable {
 
     public static final String UPDATE_TIME = "update_time";
 
-    @Override
-    public String toString() {
-        return "OrderMaster{" +
-        ", orderId=" + orderId +
-        ", buyerName=" + buyerName +
-        ", buyerPhone=" + buyerPhone +
-        ", buyerAddress=" + buyerAddress +
-        ", buyerOpenid=" + buyerOpenid +
-        ", buyerAmount=" + buyerAmount +
-        ", orderStatus=" + orderStatus +
-        ", payStatus=" + payStatus +
-        ", createTime=" + createTime +
-        ", updateTime=" + updateTime +
-        "}";
-    }
 }

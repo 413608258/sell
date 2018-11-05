@@ -1,5 +1,8 @@
 package com.lous.sell.dataobject;
 
+import lombok.Data;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
@@ -15,6 +18,8 @@ import java.io.Serializable;
  * @since 2018-11-01
  */
 @Entity
+@Data
+@DynamicUpdate
 public class OrderDetail implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,88 +53,6 @@ public class OrderDetail implements Serializable {
      */
     private Date updateTime;
 
-
-    public String getDetailId() {
-        return detailId;
-    }
-
-    public OrderDetail setDetailId(String detailId) {
-        this.detailId = detailId;
-        return this;
-    }
-
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public OrderDetail setOrderId(String orderId) {
-        this.orderId = orderId;
-        return this;
-    }
-
-    public String getProductId() {
-        return productId;
-    }
-
-    public OrderDetail setProductId(String productId) {
-        this.productId = productId;
-        return this;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public OrderDetail setProductName(String productName) {
-        this.productName = productName;
-        return this;
-    }
-
-    public BigDecimal getProductPrice() {
-        return productPrice;
-    }
-
-    public OrderDetail setProductPrice(BigDecimal productPrice) {
-        this.productPrice = productPrice;
-        return this;
-    }
-
-    public Integer getProductQuantity() {
-        return productQuantity;
-    }
-
-    public OrderDetail setProductQuantity(Integer productQuantity) {
-        this.productQuantity = productQuantity;
-        return this;
-    }
-
-    public String getProductIcon() {
-        return productIcon;
-    }
-
-    public OrderDetail setProductIcon(String productIcon) {
-        this.productIcon = productIcon;
-        return this;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public OrderDetail setCreateTime(Date createTime) {
-        this.createTime = createTime;
-        return this;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public OrderDetail setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-        return this;
-    }
-
     public static final String DETAIL_ID = "detail_id";
 
     public static final String ORDER_ID = "order_id";
@@ -148,18 +71,4 @@ public class OrderDetail implements Serializable {
 
     public static final String UPDATE_TIME = "update_time";
 
-    @Override
-    public String toString() {
-        return "OrderDetail{" +
-        ", detailId=" + detailId +
-        ", orderId=" + orderId +
-        ", productId=" + productId +
-        ", productName=" + productName +
-        ", productPrice=" + productPrice +
-        ", productQuantity=" + productQuantity +
-        ", productIcon=" + productIcon +
-        ", createTime=" + createTime +
-        ", updateTime=" + updateTime +
-        "}";
-    }
 }

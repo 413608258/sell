@@ -2,15 +2,20 @@ package com.lous.sell.service.impl;
 
 
 import com.lous.sell.dataobject.ProductInfo;
+import com.lous.sell.dto.CartDTO;
 import com.lous.sell.enums.ProductStatusEnum;
+import com.lous.sell.enums.ResultEnum;
+import com.lous.sell.execption.SellExecption;
 import com.lous.sell.repository.ProductInfoRepository;
 import com.lous.sell.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @ClassName : ProductServiceImpl
@@ -42,5 +47,38 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public ProductInfo save(ProductInfo productInfo) {
         return repository.save(productInfo);
+    }
+
+    @Override
+    @Transactional
+    public void increaseStock(List<CartDTO> cartDTOList) {
+        cartDTOList.forEach(cartDTO -> {
+            ProductInfo productInfo = this.findOne(cartDTO.getProductId());
+            if (productInfo == null) {
+                throw new SellExecption(ResultEnum.PRODUCT_NOT_EXIST);
+            }
+            Integer result = productInfo.getProductStock() + cartDTO.getProductQuantity();
+            productInfo.setProductStock(result);
+
+            this.save(productInfo);
+        });
+    }
+
+    @Override
+    @Transactional
+    public void decreaseStock(List<CartDTO> cartDTOList) {
+        cartDTOList.forEach(cartDTO -> {
+            ProductInfo productInfo = this.findOne(cartDTO.getProductId());
+            if (productInfo == null) {
+                throw new SellExecption(ResultEnum.PRODUCT_NOT_EXIST);
+            }
+            Integer result = productInfo.getProductStock() - cartDTO.getProductQuantity();
+            if ((result < 0)) {
+                throw new SellExecption(ResultEnum.PRODUCT_STOCK_ERROR);
+            }
+            productInfo.setProductStock(result);
+
+            this.save(productInfo);
+        });
     }
 }
