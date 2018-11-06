@@ -19,3 +19,19 @@ spring:
 server:
   servlet:
     context-path: /sell
+
+wechat:
+  mpAppid: wx41f14e27257c9a01
+  mpAppSecret: e98ec017748812481feac6ca1494ee1b
+#  mpAppid: wxd898fcb01713c658
+#  mpAppSecret: 29aBa650db31472aa87800e3b0d739f2
+#  mchId: 1409146202
+#  mchKey: c976503d34ca432c601361f969fd8d85
+#  keyPath: F://h5.p12
+#  notifyUrl: http://w6wapf.natappfree.cc/sell/pay/notify
+#  mpAppid: wx244b32589e71d1ed
+#  mpAppSecret: 565ad6c4d533927a43d8d00fee6b3dca
+#  mchId: 1509644691
+#  mchKey: dJyt20180809kdiejfkdjsonk5nvbghu
+#  keyPath: F://h5.p12
+#  notifyUrl: http://w6wapf.natappfree.cc/sell/pay/notify
