@@ -38,4 +38,8 @@ public interface IOrderService {
      *支付订单
      */
     OrderDTO paid(OrderDTO orderDTO);
+    /**
+     *查询全部订单列表
+     */
+    Page<OrderDTO> findList(Pageable pageable);
 }

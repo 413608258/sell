@@ -10,8 +10,8 @@ import lombok.Getter;
  * @since : 2018-11-02
  **/
 @Getter
-public enum PayStatusEnum {
-    WAIT(0, "新订单"),
+public enum PayStatusEnum implements ICodeEnum<Integer> {
+    WAIT(0, "未支付"),
     SUCCESS(1, "支付成功")
     ;
 

@@ -195,4 +195,14 @@ public class OrderServiceImpl implements IOrderService {
         }
         return orderDTO;
     }
+
+    @Override
+    public Page<OrderDTO> findList(Pageable pageable) {
+        Page<OrderMaster> orderMasterPage = orderMasterRepository.findAll(pageable);
+
+        List<OrderDTO> orderDTOList = JSON.parseArray(JSON.toJSONString(orderMasterPage.getContent()), OrderDTO.class);
+        Page<OrderDTO> orderDTOPage = new PageImpl<>(orderDTOList, pageable, orderMasterPage.getTotalElements());
+
+        return orderDTOPage;
+    }
 }

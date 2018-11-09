@@ -22,7 +22,7 @@
             </pattern>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>E:/info.%d.log</fileNamePattern>
+            <fileNamePattern>F:/log/sellLog/info.%d.log</fileNamePattern>
         </rollingPolicy>
 
     </appender>
@@ -37,7 +37,7 @@
             </pattern>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>E:/error.%d.log</fileNamePattern>
+            <fileNamePattern>F:/log/sellLog/error.%d.log</fileNamePattern>
         </rollingPolicy>
 
     </appender>

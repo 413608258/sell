@@ -10,7 +10,7 @@ import lombok.Getter;
  * @since : 2018-11-02
  **/
 @Getter
-public enum OrderStatusEnum {
+public enum OrderStatusEnum implements ICodeEnum<Integer>{
     NEW(0, "新订单"),
     FINISHED(1, "完结"),
     CANCEL(2, "已取消")

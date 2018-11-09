@@ -1,5 +1,10 @@
 package com.lous.sell.dataobject;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.lous.sell.Serializer.Date2LongSerializer;
+import com.lous.sell.enums.ProductStatusEnum;
+import com.lous.sell.utils.EnumUtil;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -49,7 +54,7 @@ public class ProductInfo implements Serializable {
     /**
      * 商品状态
      */
-    private Integer productStatus;
+    private Integer productStatus = ProductStatusEnum.UP.getCode();
     /**
      * 类目编号
      */
@@ -57,11 +62,17 @@ public class ProductInfo implements Serializable {
     /**
      * 创建时间
      */
+    @JsonSerialize(using = Date2LongSerializer.class)
     private Date createTime;
     /**
      * 更新时间
      */
+    @JsonSerialize(using = Date2LongSerializer.class)
     private Date updateTime;
+    @JsonIgnore
+    public ProductStatusEnum getProductStatusEnum(){
+        return EnumUtil.getByCode(productStatus, ProductStatusEnum.class);
+    }
 
     public static final String PRODUCT_ID = "product_id";
 

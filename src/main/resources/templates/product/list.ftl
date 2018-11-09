@@ -33,13 +33,13 @@
                         <tr>
                             <td>${productInfo.productId}</td>
                             <td>${productInfo.productName}</td>
-                            <td><img height="100" width="100" src="${productInfo.productIcon}" alt=""></td>
+                            <td><img height="30" width="30" src="${productInfo.productIcon}" alt=""></td>
                             <td>${productInfo.productPrice}</td>
                             <td>${productInfo.productStock}</td>
                             <td>${productInfo.productDescription}</td>
                             <td>${productInfo.categoryType}</td>
-                            <td>${productInfo.createTime}</td>
-                            <td>${productInfo.updateTime}</td>
+                            <td>${productInfo.createTime?string('yyyy-MM-dd HH:mm:ss')}</td>
+                            <td>${productInfo.updateTime?string('yyyy-MM-dd HH:mm:ss')}</td>
                             <td><a href="/sell/seller/product/index?productId=${productInfo.productId}">修改</a></td>
                             <td>
                                 <#if productInfo.getProductStatusEnum().message == "在架">
