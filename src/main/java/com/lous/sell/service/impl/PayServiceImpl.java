@@ -8,15 +8,12 @@ import com.lly835.bestpay.model.RefundResponse;
 import com.lly835.bestpay.service.impl.BestPayServiceImpl;
 import com.lous.sell.dto.OrderDTO;
 import com.lous.sell.enums.ResultEnum;
-import com.lous.sell.execption.SellExecption;
+import com.lous.sell.execption.SellException;
 import com.lous.sell.service.IPayService;
 import com.lous.sell.utils.MathUril;
-import javafx.scene.layout.BorderStroke;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
 
 /**
  * @ClassName : PayServiceImpl
@@ -66,12 +63,12 @@ public class PayServiceImpl implements IPayService {
         //判断订单是否存在
         if (orderDTO == null) {
             log.info("");//TODO
-            throw new SellExecption(ResultEnum.ORDER_NOT_EXIST);
+            throw new SellException(ResultEnum.ORDER_NOT_EXIST);
         }
         //判断金额是否一致( 0.10  0.1)
         if (!MathUril.equals(payResponse.getOrderAmount(), orderDTO.getOrderAmount().doubleValue())) {
             log.info("微信支付异步金额校验不通过");//可加详细信息
-            throw new SellExecption(ResultEnum.WXPAY_NOTIFY_MONEY_VERIFY_ERROR);
+            throw new SellException(ResultEnum.WXPAY_NOTIFY_MONEY_VERIFY_ERROR);
         }
         orderService.paid(orderDTO);
 

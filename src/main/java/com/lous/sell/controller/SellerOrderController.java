@@ -3,11 +3,13 @@ package com.lous.sell.controller;
 import com.lous.sell.dto.OrderDTO;
 import com.lous.sell.enums.ResultEnum;
 import com.lous.sell.service.IOrderService;
+import com.lous.sell.utils.FreeMarkerUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,7 +41,9 @@ public class SellerOrderController {
         map.put("orderDTOPage", orderDTOPage);
         map.put("currentPage", page);
         map.put("size", size);
-        return new ModelAndView("order/list1", map);
+        ModelAndView modelAndView = new ModelAndView("order/list1", map);
+        //FreeMarkerUtils.initStatics((Model) modelAndView);
+        return modelAndView;
     }
 
     @GetMapping("/cancel")

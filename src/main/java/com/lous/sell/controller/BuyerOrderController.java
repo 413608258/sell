@@ -3,9 +3,8 @@ package com.lous.sell.controller;
 import com.lous.sell.VO.ResultVO;
 import com.lous.sell.converter.OrderForm2OrderDTOConverter;
 import com.lous.sell.dto.OrderDTO;
-import com.lous.sell.enums.OrderStatusEnum;
 import com.lous.sell.enums.ResultEnum;
-import com.lous.sell.execption.SellExecption;
+import com.lous.sell.execption.SellException;
 import com.lous.sell.form.OrderForm;
 import com.lous.sell.service.IBuyerService;
 import com.lous.sell.service.IOrderService;
@@ -46,13 +45,13 @@ public class BuyerOrderController {
     public ResultVO<Map<String, String>> create(@Valid OrderForm orderForm, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             log.error("[创建订单] 参数不正确， orderForm={}", orderForm);
-            throw new SellExecption(ResultEnum.PARAM_ERROR.getCode(),
+            throw new SellException(ResultEnum.PARAM_ERROR.getCode(),
                     bindingResult.getFieldError().getDefaultMessage());
         }
         OrderDTO orderDTO = OrderForm2OrderDTOConverter.convert(orderForm);
         if (CollectionUtils.isEmpty(orderDTO.getOrderDetailList())) {
             log.error("[创建订单] 购物车不能为空");
-            throw new SellExecption(ResultEnum.CART_EMPTY);
+            throw new SellException(ResultEnum.CART_EMPTY);
         }
 
         OrderDTO createResult = orderService.create(orderDTO);
@@ -69,7 +68,7 @@ public class BuyerOrderController {
                                          @RequestParam(value = "size", required = false, defaultValue = "10") Integer size){
         if (StringUtils.isEmpty(openid)) {
             log.error("[查询订单列表] openid为空");
-            throw new SellExecption(ResultEnum.PARAM_ERROR);
+            throw new SellException(ResultEnum.PARAM_ERROR);
         }
         Page<OrderDTO> orderDTOPage = orderService.findList(openid, new PageRequest(page, size));
 

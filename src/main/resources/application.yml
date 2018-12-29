@@ -8,7 +8,8 @@
 #  path: E:/
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
+    #driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 123456
     url: jdbc:mysql://172.16.30.103/sell?characterEncoding=utf-8&useSSL=false
@@ -29,6 +30,8 @@ wechat:
   mpAppSecret: e98ec017748812481feac6ca1494ee1b
   openAppId: wx244b32589e71d1ed
   openAppSecret: 565ad6c4d533927a43d8d00fee6b3dca
+  templateId:
+    orderStatus: BQiuL1EilCtxk_bRUntj4yfa_kjSLcFurd5J3EdZ6Gs
 #  mpAppid: wxd898fcb01713c658
 #  mpAppSecret: 29aBa650db31472aa87800e3b0d739f2
 #  mchId: 1409146202
@@ -42,6 +45,9 @@ wechat:
 #  keyPath: F://h5.p12
 #  notifyUrl: http://w6wapf.natappfree.cc/sell/pay/notify
 project-url:
-  wechatMpAuthorize: http://vfkacj.natappfree.cc
-  wechatOpenAuthorize: http://vfkacj.natappfree.cc
-  sell: http://vfkacj.natappfree.cc
+  wechatMpAuthorize: http://peeggv.natappfree.cc
+  wechatOpenAuthorize: http://peeggv.natappfree.cc
+  sell: http://peeggv.natappfree.cc
+logging:
+  level:
+    com.lous.sell.dataobject.mapper: trace

@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @ClassName : SellerUserController
- * @Description : TODO
+ * @Description : 卖家
  *
  * @author : Loushuai
  * @since : 2018-11-08

@@ -5,7 +5,8 @@ import com.lous.sell.dataobject.ProductInfo;
 import com.lous.sell.dto.CartDTO;
 import com.lous.sell.enums.ProductStatusEnum;
 import com.lous.sell.enums.ResultEnum;
-import com.lous.sell.execption.SellExecption;
+import com.lous.sell.execption.ResponseBankException;
+import com.lous.sell.execption.SellException;
 import com.lous.sell.repository.ProductInfoRepository;
 import com.lous.sell.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,11 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public ProductInfo findOne(String productId) {
+        Optional<ProductInfo> productInfoOptional = repository.findById(productId);
+        if (!productInfoOptional.isPresent()) {
+            throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+            //throw new ResponseBankException();
+        }
         return repository.findById(productId).get();
     }
 
@@ -55,7 +61,7 @@ public class ProductServiceImpl implements IProductService {
         cartDTOList.forEach(cartDTO -> {
             ProductInfo productInfo = this.findOne(cartDTO.getProductId());
             if (productInfo == null) {
-                throw new SellExecption(ResultEnum.PRODUCT_NOT_EXIST);
+                throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
             }
             Integer result = productInfo.getProductStock() + cartDTO.getProductQuantity();
             productInfo.setProductStock(result);
@@ -70,11 +76,11 @@ public class ProductServiceImpl implements IProductService {
         cartDTOList.forEach(cartDTO -> {
             ProductInfo productInfo = this.findOne(cartDTO.getProductId());
             if (productInfo == null) {
-                throw new SellExecption(ResultEnum.PRODUCT_NOT_EXIST);
+                throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
             }
             Integer result = productInfo.getProductStock() - cartDTO.getProductQuantity();
             if ((result < 0)) {
-                throw new SellExecption(ResultEnum.PRODUCT_STOCK_ERROR);
+                throw new SellException(ResultEnum.PRODUCT_STOCK_ERROR);
             }
             productInfo.setProductStock(result);
 
@@ -85,10 +91,10 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public ProductInfo onSale(String productId) {
         Optional<ProductInfo> opt = repository.findById(productId);
-        opt.orElseThrow(() -> new SellExecption(ResultEnum.PRODUCT_NOT_EXIST));
+        opt.orElseThrow(() -> new SellException(ResultEnum.PRODUCT_NOT_EXIST));
         ProductInfo productInfo = opt.get();
         if (productInfo.getProductStatusEnum() == ProductStatusEnum.UP) {
-            throw new SellExecption(ResultEnum.PRODUCT_STOCK_ERROR);
+            throw new SellException(ResultEnum.PRODUCT_STOCK_ERROR);
         }
         //更新
         productInfo.setProductStatus(ProductStatusEnum.UP.getCode());
@@ -98,10 +104,10 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public ProductInfo offSale(String productId) {
         Optional<ProductInfo> opt = repository.findById(productId);
-        opt.orElseThrow(() -> new SellExecption(ResultEnum.PRODUCT_NOT_EXIST));
+        opt.orElseThrow(() -> new SellException(ResultEnum.PRODUCT_NOT_EXIST));
         ProductInfo productInfo = opt.get();
         if (productInfo.getProductStatusEnum() == ProductStatusEnum.DOWN) {
-            throw new SellExecption(ResultEnum.PRODUCT_STOCK_ERROR);
+            throw new SellException(ResultEnum.PRODUCT_STOCK_ERROR);
         }
         //更新
         productInfo.setProductStatus(ProductStatusEnum.DOWN.getCode());

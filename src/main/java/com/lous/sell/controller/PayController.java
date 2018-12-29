@@ -3,7 +3,7 @@ package com.lous.sell.controller;
 import com.lly835.bestpay.model.PayResponse;
 import com.lous.sell.dto.OrderDTO;
 import com.lous.sell.enums.ResultEnum;
-import com.lous.sell.execption.SellExecption;
+import com.lous.sell.execption.SellException;
 import com.lous.sell.service.IOrderService;
 import com.lous.sell.service.IPayService;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +36,7 @@ public class PayController {
         //1.查询订单
         OrderDTO orderDTO = orderService.findOne(orderId);
         if (orderDTO == null) {
-            throw new SellExecption(ResultEnum.ORDER_NOT_EXIST);
+            throw new SellException(ResultEnum.ORDER_NOT_EXIST);
         }
         //2.发起支付
         PayResponse payResponse = payService.cteate(orderDTO);

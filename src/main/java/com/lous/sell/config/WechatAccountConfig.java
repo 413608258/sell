@@ -5,6 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import javax.net.ssl.SSLContext;
+import java.util.Map;
 
 /**
  * @ClassName : WechatAccountConfig
@@ -32,4 +33,6 @@ public class WechatAccountConfig {
     private String mchKey;
     private String keyPath;
     private String notifyUrl;
+
+    private Map<String, String> templateId;
 }

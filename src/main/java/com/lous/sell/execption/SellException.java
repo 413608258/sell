@@ -1,25 +1,26 @@
 package com.lous.sell.execption;
 
 import com.lous.sell.enums.ResultEnum;
+import lombok.Getter;
 
 /**
- * @ClassName : SellExecption
+ * @ClassName : SellException
  * @Description : TODO
  *
  * @author : Loushuai
  * @since : 2018-11-02
  **/
- 
-public class SellExecption extends RuntimeException{
+@Getter
+public class SellException extends RuntimeException{
 
     private Integer code;
 
-    public SellExecption(ResultEnum resultEnum){
+    public SellException(ResultEnum resultEnum){
         super(resultEnum.getMessage());
         this.code = resultEnum.getCode();
     }
 
-    public SellExecption(Integer code, String message) {
+    public SellException(Integer code, String message) {
         super(message);
         this.code = code;
     }

@@ -1,7 +1,7 @@
 package com.lous.sell.controller;
 
 import com.lous.sell.dataobject.ProductCategory;
-import com.lous.sell.execption.SellExecption;
+import com.lous.sell.execption.SellException;
 import com.lous.sell.form.CategoryForm;
 import com.lous.sell.service.ICategoryService;
 import lombok.extern.slf4j.Slf4j;
@@ -66,7 +66,7 @@ public class SellerCategoryController {
             }
             BeanUtils.copyProperties(from, productCategory);
             categoryService.save(productCategory);
-        }catch (SellExecption e){
+        }catch (SellException e){
             map.put("msg", e.getMessage());
             map.put("url", "/sell/seller/category/index");
             return  new ModelAndView("common/error", map);

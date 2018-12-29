@@ -2,7 +2,7 @@ package com.lous.sell.service.impl;
 
 import com.lous.sell.dto.OrderDTO;
 import com.lous.sell.enums.ResultEnum;
-import com.lous.sell.execption.SellExecption;
+import com.lous.sell.execption.SellException;
 import com.lous.sell.service.IBuyerService;
 import com.lous.sell.service.IOrderService;
 import lombok.Data;
@@ -36,7 +36,7 @@ public class BuyerServiceImpl implements IBuyerService {
         OrderDTO orderDTO = checkOrderOwner(openid, orderId);
         if (orderDTO == null) {
             log.error("[取消订单] 查不到该订单，orderId={}", orderId);
-             throw new SellExecption(ResultEnum.ORDER_NOT_EXIST);
+             throw new SellException(ResultEnum.ORDER_NOT_EXIST);
         }
         return orderService.cancel(orderDTO);
     }
@@ -48,7 +48,7 @@ public class BuyerServiceImpl implements IBuyerService {
         }
         if (!orderDTO.getBuyerOpenid().equalsIgnoreCase(openid)) {
             log.error("[查询订单] 订单openid不一致. openid={}, orderDTO={}", openid, orderDTO);
-            throw new SellExecption(ResultEnum.ORDER_OWNER_ERROR);
+            throw new SellException(ResultEnum.ORDER_OWNER_ERROR);
         }
         return orderDTO;
     }
