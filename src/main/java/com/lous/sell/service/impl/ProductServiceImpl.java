@@ -10,6 +10,9 @@ import com.lous.sell.execption.SellException;
 import com.lous.sell.repository.ProductInfoRepository;
 import com.lous.sell.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,11 +29,15 @@ import java.util.Optional;
  * @since : 2018-11-01
  **/
 @Service
+//TODO: Redis 缓存相关注解
+//@CacheConfig(cacheNames = "product")
 public class ProductServiceImpl implements IProductService {
     @Autowired
     private ProductInfoRepository repository;
 
     @Override
+    //TODO: Redis 缓存相关注解
+    @Cacheable(cacheNames = "product", key = "#productId")
     public ProductInfo findOne(String productId) {
         Optional<ProductInfo> productInfoOptional = repository.findById(productId);
         if (!productInfoOptional.isPresent()) {
@@ -51,6 +58,8 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
+    //TODO: Redis 缓存相关注解
+    @CachePut(cacheNames = "product", key = "#productInfo.productId")
     public ProductInfo save(ProductInfo productInfo) {
         return repository.save(productInfo);
     }

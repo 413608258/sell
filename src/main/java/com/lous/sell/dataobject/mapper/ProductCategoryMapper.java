@@ -43,4 +43,6 @@ public interface ProductCategoryMapper {
 
     @Update("update product_category set category_name = #{categoryName} where category_type = #{categoryType}")
     int updateByCategoryObject(ProductCategory productCategory);
+
+    ProductCategory selectByCategoryType(Integer categoryType);
 }

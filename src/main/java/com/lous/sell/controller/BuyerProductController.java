@@ -10,6 +10,7 @@ import com.lous.sell.service.ICategoryService;
 import com.lous.sell.service.IProductService;
 import com.lous.sell.utils.ResultVOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,6 +39,8 @@ public class BuyerProductController {
     private ICategoryService categoryService;
 
     @GetMapping("/list")
+    //TODO: Redis缓存相关注解 spel表达式可动态传key, condition：满足条件缓存， unless: 满足条件就不缓存，
+    //@Cacheable(cacheNames = "product", key = "123", condition = "", unless = "#result.getCode() != 0")
     public ResultVO list(){
         //1.查询所有的上架商品
         List<ProductInfo> productInfoList = productService.findUpAll();

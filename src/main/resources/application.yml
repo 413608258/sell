@@ -45,9 +45,11 @@ wechat:
 #  keyPath: F://h5.p12
 #  notifyUrl: http://w6wapf.natappfree.cc/sell/pay/notify
 project-url:
-  wechatMpAuthorize: http://peeggv.natappfree.cc
-  wechatOpenAuthorize: http://peeggv.natappfree.cc
-  sell: http://peeggv.natappfree.cc
+  wechatMpAuthorize: http://dvtjb3.natappfree.cc
+  wechatOpenAuthorize: http://dvtjb3.natappfree.cc
+  sell: http://dvtjb3.natappfree.cc
 logging:
   level:
     com.lous.sell.dataobject.mapper: trace
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
