@@ -1,0 +1,46 @@
+Centos7 提倡用service的方式来启动服务(详细了解可百度关键字: centos 7 service)
+	以启动 springboot 项目为例:
+		1.到该目录(约定)	
+			cd /etc/systemd/system/
+		2.新建一个文件(自定义)
+			vim sell.service
+		3.按照以下模板填写
+			[Unit]
+			Description=sell
+			After=syslog.target network.target
+			
+			[Service]
+			Type=simple
+			
+			ExecStart=/usr/bin/java -jar
+			ExecStop=/bin/kill -15 $MAINPID
+			
+			User=tomcat
+			Group=tomcat
+			
+			[Install]
+			WantedBy=multi-user.target
+		改后示例:
+			[Unit]
+			Description=sell
+			After=syslog.target network.target
+									
+			[Service]
+			Type=simple
+									
+			ExecStart=/usr/bin/java -jar -Dserver.port=8090 /opt/javaapps/sell.jar
+			ExecStop=/bin/kill -15 $MAINPID
+									
+			User=root
+			Group=root
+									
+			[Install]
+			WantedBy=multi-user.target
+		4.运行service,执行以下命令 (可能提示要先运行: systemctl daemon-reload)
+			systemctl start sell (或者) systemctl start sell.service
+		5.停止service,执行以下命令
+			systemctl stop sell  (或者) systemctl stop sell.service
+		6.设置开机启动service,执行命令
+			systemctl enable sell
+		7.关闭开机启动service,执行命令
+			systemctl disable sell

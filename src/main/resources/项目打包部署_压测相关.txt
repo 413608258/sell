@@ -1,0 +1,22 @@
+项目打包部署相关
+	
+	项目打包
+		mvn clean package -Dmaven.test.skip=true
+		
+	linux/mac下拷贝文件到服务器:
+		scp target/sell.jar root@172.16.30.103:/opt/javaapps
+		
+	启动springboot项目
+		java -jar sell.jar
+		java -jar -Dserver.port=8090 sell.jar
+		java -jar -Dserver.port=8090 -Dspring.profiles.active=prod sell.jar
+		
+	后台启动:
+		nohup java -jar -Dserver.port=8090 sell.jar > /dev/null 2>&1 &
+
+用压测模拟并发
+	工具：Apache ab
+		ab -n 100 -c 100 http://www.baidu.com/
+			(-n 100:发出100个请求,-c 100:模拟100个并发,相当于100个人同时访问)
+		ab -t 60 -c 100 http://www.baidu.com/
+			(-t 60:连续60秒,-c 100:模拟100个并发,连续60s并发100个请求)
